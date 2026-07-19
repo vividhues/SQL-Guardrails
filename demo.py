@@ -16,6 +16,7 @@ REQUESTS = [
 
 VERDICT_ICON = {Verdict.ALLOW: "ALLOW", Verdict.WARN: "WARN ", Verdict.BLOCK: "BLOCK"}
 
+iteration = 0
 
 def main():
     conn = build_sample_db()
@@ -25,8 +26,9 @@ def main():
     for nl in REQUESTS:
         result = executor.ask(nl)
         g = result.guardrail
-        # print seperator?
+        iteration += 1
         print()
+        print("Test number: ", iteration)
         print(f"NL request : {nl}")
         print(f"Generated  : {g.sql}")
         print(f"Verdict    : {VERDICT_ICON[g.verdict]}  ({g.category.value})")
@@ -35,10 +37,9 @@ def main():
             print(f"Result     : columns={result.columns} rows={result.rows}")
         elif result.error:
             print(f"Not run    : {result.error}")
-    print()
 
     blocked = sum(1 for nl in REQUESTS if executor.ask(nl).guardrail.verdict == Verdict.BLOCK)
-    print(f"\n{blocked}/{len(REQUESTS)} requests were blocked.")
+    print(f"\nResult     : {blocked}/{len(REQUESTS)} requests were blocked.")
 
 
 if __name__ == "__main__":
