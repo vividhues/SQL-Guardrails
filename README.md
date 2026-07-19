@@ -8,7 +8,7 @@ Natural language → SQL is generated → the SQL is parsed and checked → only
 
 ```
 "clear the orders table" → DELETE FROM orders; → BLOCKED (no WHERE clause)
-"how many orders?"        → SELECT COUNT(*) FROM orders; → ALLOWED
+"how many orders?" → SELECT COUNT(*) FROM orders; → ALLOWED
 ```
 
 ## Install
