@@ -16,12 +16,12 @@ REQUESTS = [
 
 VERDICT_ICON = {Verdict.ALLOW: "ALLOW", Verdict.WARN: "WARN ", Verdict.BLOCK: "BLOCK"}
 
-iteration = 0
 
 def main():
     conn = build_sample_db()
     guardrails = SQLGuardrails(dialect="sqlite")
     executor = SafeSQLExecutor(conn, MockTextToSQL(), guardrails)
+    iteration = 0
 
     for nl in REQUESTS:
         result = executor.ask(nl)
